@@ -5,6 +5,12 @@
       "bundler": "metro"
     },
     "name": "thedailydish",
-    "slug": "thedailydish"
+    "slug": "thedailydish",
+    "extra": {
+      "eas": {
+        "projectId": "1c18bc19-092f-445e-8c0f-07dfb7946ac5"
+      }
+    },
+    "owner": "emillo2003"
   }
 }
