@@ -35,13 +35,15 @@ export default function Overview({}: Props) {
     <View style={styles().container}>
       <View style={styles().headContainer}>
         <View style={styles().headerContainer}>
-          <TouchableOpacity onPress={()=>handleChange("new")}><Text style={styles(newDish).headers}>New Dishes</Text></TouchableOpacity>
-          <TouchableOpacity onPress={()=>handleChange("dish")}><Text style={styles(dish).headers}>Dishes</Text></TouchableOpacity>
-        </View>
-        <View style={styles().ballContainer} >
+          <TouchableOpacity onPress={()=>handleChange("new")} style={styles().ballContainer}>
+            <Text style={styles(newDish).headers}>New Dishes</Text>
             <View style={styles(1,ball1).ballView}></View>
+            </TouchableOpacity>
+          <TouchableOpacity onPress={()=>handleChange("dish")} style={styles().ballContainer}>
+            <Text style={styles(dish).headers}>Dishes</Text>
             <View style={styles(0,ball2).ballView}></View>
-          </View>
+            </TouchableOpacity>
+        </View>
       </View>
       
     </View>
