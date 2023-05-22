@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 
+
 import { FONT } from "../../../constants";
 
 const styles = StyleSheet.create({
@@ -12,6 +13,11 @@ const styles = StyleSheet.create({
         width: "95%",
         height:184,
         marginLeft: 10,
+        marginBottom: 50,
+    },
+    link:{
+        width: 600,
+        height:"100%",
     },
     imageContainer: {
         width: "100%",

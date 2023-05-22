@@ -16,7 +16,7 @@ export default function Home() {
           headerTitle: "",
         }}
       />
-      <Text>Fedt man spa</Text>
+      <Text>Hej</Text>
     </SafeAreaView>
   );
 }
