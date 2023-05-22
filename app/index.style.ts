@@ -12,6 +12,9 @@ const styles = (num?:number) => StyleSheet.create({
         fontSize: 28,
         fontFamily: num === 1 ? "CalibriBold" : "CalibriRegular",
         margin: 5
+    },
+    header: {
+        zIndex: -1,
     }
 })
 

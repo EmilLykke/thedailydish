@@ -15,7 +15,7 @@ export default function Home() {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff" }}>
       <Stack.Screen
         options={{
-          headerStyle: { backgroundColor: "#ffffff" },
+          headerStyle: { backgroundColor: "#ffffff", },
           headerShadowVisible: false,
           headerLeft: () => <LeftHead />,
           headerTitle: "",
