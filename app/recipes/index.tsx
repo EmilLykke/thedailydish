@@ -4,7 +4,7 @@ import { View, ScrollView, SafeAreaView, Text, TouchableOpacity } from "react-na
 import { Stack, useRouter } from "expo-router";
 import styles from "./index.style";
 
-export default function Home() {
+export default function Recipes() {
   const router = useRouter();
   
   return (

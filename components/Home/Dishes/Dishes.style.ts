@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 
-import { FONT } from "../../../constants";
 
 const styles = (num?:number, ball?:number) => StyleSheet.create({
     container:{
