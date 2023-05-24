@@ -1,33 +1,13 @@
 const router = require("express").Router();
 let QrCode = require("../models/qrcode.model");
 const { v4 } = require("uuid");
-const QR = require('qrcode-svg');
-const svgToImg = require('svg-to-img');
 
 const { authenticateToken } = require('../index');
-
-
 
 router.get("/", authenticateToken, (req,res)=>{
     QrCode.find().then(qr_codes=>res.json(qr_codes)).catch(err=>res.status(400).json("error: "+ err));
 });
 
-async function generateQRcode(url) {
-    const qrcode = new QR({
-        content: url,
-        padding: 0,
-        width: 256,
-        height: 256
-      });
-      const svg = qrcode.svg();
-      const buffer = await svgToImg.from(svg).toPng({
-        encoding: "base64"
-      });
-    const base64Image = `data:image/png;base64,${buffer.toString()}`;
-    // const base64Image = `${buffer.toString()}`;
-      return base64Image;
-  
-}
 
 router.post("/add", authenticateToken, async (req,res)=>{
     const username = req.body.username;

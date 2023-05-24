@@ -9,16 +9,22 @@ import IngredientsInput from "../../components/Add/IngredientsInput/IngredientsI
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import CookingStepsInput from "../../components/Add/CookingStepsInput/CookingStepsInput";
 import SubmitButton from "../../components/Add/SubmitButton/SubmitButton";
+import CommentInput from "../../components/Add/CommentInput/CommentInput";
 
 export default function Add() {
   const router = useRouter();
 
+  // TITLE LOGIC
+  const [titleInput, setTitleInput] = useState('');
+
+  function handleSetTitleInput(title:string){
+    setTitleInput(title);
+  }
 
   // UPLOAD IMAGE LOGIC 
   const [images, setImages] = useState<any>(null);
   const [uploaded, setUploaded] = useState<number>(1);
 
-  // UPLOAD IMAGE LOGIC 
   useEffect(()=>{
     if(images!=null){
       setUploaded(0);
@@ -94,9 +100,16 @@ export default function Add() {
   }
   
 
+  // COMMENT INPUT
+  const [commentInput, setCommentInput] = useState('');
+
+  function handleSetCommentInput(comment:string){
+    setCommentInput(comment);
+  }
+
   // SUBMIT BUTTON
   function handleSubmit(){
-    console.log(images?.assets[0].height,ingredients[0].ingredient,steps[0].step)
+    console.table(titleInput, images?.assets[0].height,ingredients[0].ingredient,steps[0].step,commentInput)
   }
 
 
@@ -112,7 +125,7 @@ export default function Add() {
       />
       <ScrollView showsVerticalScrollIndicator={false}>
       {/* Title */}
-      <TitleInput />
+      <TitleInput handleChange={handleSetTitleInput} text={titleInput}/>
       {/* Image - Square with dotted line and images svg in middle */}
       <ImageInput press={handlePress} uploaded={uploaded}/>
       <Image 
@@ -123,6 +136,9 @@ export default function Add() {
       <IngredientsInput handleChange={handleIngredientsChange} ingredients={ingredients}/>
       {/* Steps - like a todo - NOTIONS todo */}
       <CookingStepsInput handleChange={handleStepsChange} steps={steps}/>
+
+      {/* Comment */}
+      <CommentInput handleChange={handleSetCommentInput} text={commentInput} />
 
       {/* Save button */}
       <SubmitButton handleSubmit={handleSubmit}/>

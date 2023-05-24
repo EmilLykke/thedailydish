@@ -26,10 +26,10 @@ module.exports = {
 };
 
 
-const qrcodesRouter = require("./routes/qr-codes");
+const recipesRouter = require("./routes/recipes");
 const usersRouter = require("./routes/users");
 
-app.use("/items",qrcodesRouter);
+app.use("/recipes",recipesRouter);
 app.use("/users",usersRouter);
 
 
