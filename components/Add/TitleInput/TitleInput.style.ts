@@ -5,12 +5,12 @@ import { FONT } from "../../../constants";
 
 const styles = StyleSheet.create({
     container:{
-       
+        margin: 12,
        
     },
     input: {
         height: 40,
-        margin: 12,
+        
         fontSize: 32,
         borderBottomWidth: 1,
         paddingBottom: 10,

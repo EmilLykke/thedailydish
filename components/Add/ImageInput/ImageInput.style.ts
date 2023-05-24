@@ -4,6 +4,7 @@ import { FONT } from "../../../constants";
 
 const styles = (num?:number) => StyleSheet.create({
     container:{
+        margin: 12,
         display: num === 1 ? "flex" : "none",
     },
     text: {
