@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#EEEEEE",
     borderRadius: 50,
-    marginTop: -10,
     width: 52,
     height: 52,
     position: 'relative',

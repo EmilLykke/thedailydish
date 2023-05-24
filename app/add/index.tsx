@@ -16,7 +16,14 @@ export default function Home() {
           headerTitle: "",
         }}
       />
-      <Text>Recipes</Text>
+      {/* Title */}
+      {/* Image - Square with dotted line and images svg in middle */}
+      {/* Ingredients - like a todo - NOTIONS todo */}
+      {/* Steps - like a todo - NOTIONS todo */}
+      {/* Save button */}
+
+
+      <Text>ADD</Text>
     </SafeAreaView>
   );
 }
