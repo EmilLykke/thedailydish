@@ -8,6 +8,7 @@ import ImageInput from "../../components/Add/ImageInput/ImageInput";
 import IngredientsInput from "../../components/Add/IngredientsInput/IngredientsInput";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import CookingStepsInput from "../../components/Add/CookingStepsInput/CookingStepsInput";
+import SubmitButton from "../../components/Add/SubmitButton/SubmitButton";
 
 export default function Add() {
   const router = useRouter();
@@ -92,6 +93,13 @@ export default function Add() {
 
   }
   
+
+  // SUBMIT BUTTON
+  function handleSubmit(){
+    console.log(images?.assets[0].height,ingredients[0].ingredient,steps[0].step)
+  }
+
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff" }}>
       <Stack.Screen
@@ -108,7 +116,7 @@ export default function Add() {
       {/* Image - Square with dotted line and images svg in middle */}
       <ImageInput press={handlePress} uploaded={uploaded}/>
       <Image 
-        style={{width: 300, height: 150, resizeMode: "contain", }}
+        style={{width: "100%", height: 150, resizeMode: "contain", }}
         source={{uri: images?.assets[0].uri}}
         />      
       {/* Ingredients - like a todo - NOTIONS todo */}
@@ -117,6 +125,7 @@ export default function Add() {
       <CookingStepsInput handleChange={handleStepsChange} steps={steps}/>
 
       {/* Save button */}
+      <SubmitButton handleSubmit={handleSubmit}/>
 
       </ScrollView>
     </SafeAreaView>
