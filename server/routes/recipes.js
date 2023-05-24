@@ -26,13 +26,18 @@ router.post("/add", authenticateToken, async (req,res)=>{
         comment,
     });
 
-    newRecipe.save().then((newRecipe)=>{
-        res.json(newRecipe);
+    newRecipe.save().then(()=>{
+        res.json("Recipe added!");
     }).catch(err => res.status(400).json("Error: "+ err));
+    
+    // sender objekt med tilbage
+    // newRecipe.save().then((newRecipe)=>{
+    //     res.json(newRecipe);
+    // }).catch(err => res.status(400).json("Error: "+ err));
 });
 
-router.get("/:id", authenticateToken, (req,res)=>{
-    Recipe.findOne({useruid:req.params.id}).then(recipe=>res.json(recipe)).catch(err=>res.status(400).json("error: "+ err));
+router.post("/:id", authenticateToken, (req,res)=>{
+    Recipe.findOne({_id:req.params.id, useruid: req.body.useruid}).then(recipe=>res.json(recipe)).catch(err=>res.status(400).json("error: "+ err));
 });
 
 router.delete("/:id", authenticateToken, (req,res)=>{

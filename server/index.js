@@ -9,7 +9,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({limit: "50mb"}));
+
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true});
@@ -56,6 +57,6 @@ function authenticateToken(req,res,next){
 
 
 function genereateAccessToken(user){
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "10m"});
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "20m"});
 }
 

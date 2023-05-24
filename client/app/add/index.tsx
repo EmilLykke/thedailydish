@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { View, ScrollView, SafeAreaView, Text, TouchableOpacity, Image } from "react-native";
+import { SafeAreaView, Image } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import styles from "./index.style";
 import TitleInput from "../../components/Add/TitleInput/TitleInput";
@@ -12,6 +12,7 @@ import SubmitButton from "../../components/Add/SubmitButton/SubmitButton";
 import CommentInput from "../../components/Add/CommentInput/CommentInput";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
+import jwt_decode from "jwt-decode"; 
 
 export default function Add() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function Add() {
   }
 
   // UPLOAD IMAGE LOGIC 
+  // https://github.com/react-native-image-picker/react-native-image-picker
   const [images, setImages] = useState<any>(null);
   const [uploaded, setUploaded] = useState<number>(1);
 
@@ -109,11 +111,31 @@ export default function Add() {
     setCommentInput(comment);
   }
 
+
+ const temp_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZW1pbCIsInVzZXJ1aWQiOiJiNTE2ZWEwZS1jMmJlLTQzYjEtYTFkZC04MTgxNzBiMzYyYzgiLCJpYXQiOjE2ODQ5NTI1OTcsImV4cCI6MTY4NDk1Mzc5N30.R55hZlIRxibXbT7R6CA-8Nau9RnKNAmNtiFyl3e28LA"
+
   // SUBMIT BUTTON
   async function handleSubmit(){
-    const result = await axios.get("http://192.168.86.213:5000/recipes/");
-    // titleInput, images?.assets[0].height,ingredients[0].ingredient,steps[0].step,commentInput
-    console.table(result.data)
+    const url = "http://192.168.86.213:5000/recipes/add"
+  
+    const config = {
+      headers:{
+        Authorization: "Bearer " + temp_jwt,
+      }
+    };
+
+    const data = {
+      useruid: JSON.parse(JSON.stringify(jwt_decode(temp_jwt))).useruid,
+      title: titleInput,
+      image: images?.assets[0].uri,
+      ingredients: ingredients,
+      cookingSteps: steps,
+      comment: commentInput,
+    }
+    
+
+    const result = await axios.post(url,data, config);
+    console.log(result.data)    
     
   }
 
