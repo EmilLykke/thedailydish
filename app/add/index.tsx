@@ -7,12 +7,17 @@ import TitleInput from "../../components/Add/TitleInput/TitleInput";
 import ImageInput from "../../components/Add/ImageInput/ImageInput";
 import IngredientsInput from "../../components/Add/IngredientsInput/IngredientsInput";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import CookingStepsInput from "../../components/Add/CookingStepsInput/CookingStepsInput";
 
 export default function Add() {
   const router = useRouter();
+
+
+  // UPLOAD IMAGE LOGIC 
   const [images, setImages] = useState<any>(null);
   const [uploaded, setUploaded] = useState<number>(1);
 
+  // UPLOAD IMAGE LOGIC 
   useEffect(()=>{
     if(images!=null){
       setUploaded(0);
@@ -24,6 +29,7 @@ export default function Add() {
   },[])
 
 
+  // INGREDIENT LIST LOGIC 
   const [ingredients, setIngredients] = useState([{key: 0, ingredient: ""}]);
   
   useEffect(()=>{
@@ -44,13 +50,45 @@ export default function Add() {
     })
   },[ingredients])
   
-  function handleChange(ingredient:string, key:number){
+  function handleIngredientsChange(ingredient:string, key:number){
     let targetIndex = ingredients.findIndex(item => item.key === key)
     let ingredientObj = {ingredient: ingredient}
     let targetObject = {...ingredients[targetIndex], ...ingredientObj}
     let newingredients = [...ingredients.slice(0, targetIndex), targetObject, ...ingredients.slice(targetIndex+ 1)]
 
     setIngredients(newingredients);
+
+  }
+
+
+  // COOKING STEPS LOGIC  
+  const [steps, setSteps] = useState([{key: 0, step: ""}]);
+  
+  useEffect(()=>{
+    steps.map((item)=>{
+      if(item.key == steps.length-1 && item.step.length > 0){
+        setSteps([
+          ...steps,
+          {
+            key: item.key+1,
+            step: ""
+          }
+        ])
+      } else if(item.key == steps.length-2 && item.step.length < 1){
+        let targetIndex = steps.findIndex(data => data.key === item.key+1);
+        let newsteps = [...steps.slice(0, targetIndex)];
+        setSteps(newsteps);
+      }
+    })
+  },[steps])
+  
+  function handleStepsChange(step:string, key:number){
+    let targetIndex = steps.findIndex(item => item.key === key)
+    let stepObj = {step: step}
+    let targetObject = {...steps[targetIndex], ...stepObj}
+    let newsteps = [...steps.slice(0, targetIndex), targetObject, ...steps.slice(targetIndex+ 1)]
+
+    setSteps(newsteps);
 
   }
   
@@ -74,8 +112,10 @@ export default function Add() {
         source={{uri: images?.assets[0].uri}}
         />      
       {/* Ingredients - like a todo - NOTIONS todo */}
-      <IngredientsInput handleChange={handleChange} ingredients={ingredients}/>
+      <IngredientsInput handleChange={handleIngredientsChange} ingredients={ingredients}/>
       {/* Steps - like a todo - NOTIONS todo */}
+      <CookingStepsInput handleChange={handleStepsChange} steps={steps}/>
+
       {/* Save button */}
 
       </ScrollView>
