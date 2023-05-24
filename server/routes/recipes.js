@@ -1,57 +1,54 @@
 const router = require("express").Router();
-let QrCode = require("../models/qrcode.model");
-const { v4 } = require("uuid");
+let Recipe = require("../models/recipe.model");
 
 const { authenticateToken } = require('../index');
 
-router.get("/", authenticateToken, (req,res)=>{
-    QrCode.find().then(qr_codes=>res.json(qr_codes)).catch(err=>res.status(400).json("error: "+ err));
+router.post("/", authenticateToken, (req,res)=>{
+    Recipe.find({useruid: req.body.useruid}).then(recipes=>res.json(recipes)).catch(err=>res.status(400).json("error: "+ err));
 });
 
 
 router.post("/add", authenticateToken, async (req,res)=>{
-    const username = req.body.username;
-    const item = req.body.item;
-    const description = req.body.description;
-    const lastStatus = Date.parse(req.body.lastStatus);
-    const uid = v4();
-
-    const url = "http://localhost:3000/items/"+uid;
-    // const url = "http://lykkegrann.dk:3000/items/"+uid;
-    const qr = await generateQRcode(url);
+    const useruid = req.body.useruid;
+    const title = req.body.title;
+    const image = req.body.image;
+    const ingredients = req.body.ingredients;
+    const cookingSteps = req.body.cookingSteps;
+    const comment = req.body.comment;
     
 
-    const newQrCode = new QrCode({
-        username,
-        item,
-        uid,
-        qr,
-        description,
-        lastStatus,
+    const newRecipe = new Recipe({
+        useruid,
+        title,
+        image,
+        ingredients,
+        cookingSteps,
+        comment,
     });
 
-    newQrCode.save().then((newQrCode)=>{
-        res.json(newQrCode);
+    newRecipe.save().then((newRecipe)=>{
+        res.json(newRecipe);
     }).catch(err => res.status(400).json("Error: "+ err));
 });
 
 router.get("/:id", authenticateToken, (req,res)=>{
-    QrCode.findOne({uid:req.params.id}).then(qr_code=>res.json(qr_code)).catch(err=>res.status(400).json("error: "+ err));
+    Recipe.findOne({useruid:req.params.id}).then(recipe=>res.json(recipe)).catch(err=>res.status(400).json("error: "+ err));
 });
 
 router.delete("/:id", authenticateToken, (req,res)=>{
-    QrCode.findOneAndDelete({uid:req.params.id}).then(()=>res.json("QR code deleted")).catch(err=>res.status(400).json("error: "+ err));
+    Recipe.findOneAndDelete({useruid:req.params.id}).then(()=>res.json("Recipe deleted")).catch(err=>res.status(400).json("error: "+ err));
 });
 
 
 router.post("/update/:id",authenticateToken, (req,res)=>{
-    QrCode.findOne({uid:req.params.id}).then(qr_code=>{
-        qr_code.username = req.body.username;
-        qr_code.item = req.body.item;
-        qr_code.description = req.body.description;
-        qr_code.lastStatus = Date.parse(req.body.lastStatus);
+    Recipe.findOne({useruid:req.params.id}).then(recipe=>{
+        recipe.title = req.body.title;
+        recipe.image = req.body.image;
+        recipe.ingredients = req.body.ingredients;
+        recipe.cookingSteps = req.body.cookingSteps;
+        recipe.comment = req.body.comment;
 
-        qr_code.save().then(()=>res.json("QR code Updated!")).catch(err => res.status(400).json("Error: "+ err));
+        recipe.save().then(()=>res.json("Recipe Updated!")).catch(err => res.status(400).json("Error: "+ err));
     })
     .catch(err=>res.status(400)
     .json("error: "+ err));

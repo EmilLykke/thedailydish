@@ -21,7 +21,13 @@ const userSchema = new Schema({
         required: true,
         trim:true,
         minlength: 15
-    }
+    },
+    useruid: {
+        type: String,
+        required: true,
+        trim:true,
+        minlength: 4
+    },
 }, {
     timestamps:true,
 });

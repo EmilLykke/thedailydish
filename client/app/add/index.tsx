@@ -10,6 +10,8 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import CookingStepsInput from "../../components/Add/CookingStepsInput/CookingStepsInput";
 import SubmitButton from "../../components/Add/SubmitButton/SubmitButton";
 import CommentInput from "../../components/Add/CommentInput/CommentInput";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import axios from "axios";
 
 export default function Add() {
   const router = useRouter();
@@ -108,8 +110,11 @@ export default function Add() {
   }
 
   // SUBMIT BUTTON
-  function handleSubmit(){
-    console.table(titleInput, images?.assets[0].height,ingredients[0].ingredient,steps[0].step,commentInput)
+  async function handleSubmit(){
+    const result = await axios.get("http://192.168.86.213:5000/recipes/");
+    // titleInput, images?.assets[0].height,ingredients[0].ingredient,steps[0].step,commentInput
+    console.table(result.data)
+    
   }
 
 
@@ -123,7 +128,7 @@ export default function Add() {
         }}
         
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       {/* Title */}
       <TitleInput handleChange={handleSetTitleInput} text={titleInput}/>
       {/* Image - Square with dotted line and images svg in middle */}
@@ -143,7 +148,7 @@ export default function Add() {
       {/* Save button */}
       <SubmitButton handleSubmit={handleSubmit}/>
 
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
