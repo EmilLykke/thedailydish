@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { View, ScrollView, SafeAreaView, Text, TouchableOpacity } from "react-native";
-import { Stack, useRouter } from "expo-router";
+import { Stack, useNavigation, useRouter } from "expo-router";
 import { useRoute } from '@react-navigation/native';
 import styles from "./index.style";
 import axios from "axios";
@@ -18,14 +18,12 @@ type Recipe = {
 }
 
 export default function Recipes() {
-
-
-  const route = useRoute();
-  
+  const route = useNavigation();
+  console.log(route)
+  const [url, setUrl] = useState("http://192.168.86.213:5000/recipes/")
   const [recipe, setRecipe] = useState<Recipe>()
-
-  const temp_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZW1pbCIsInVzZXJ1aWQiOiJiNTE2ZWEwZS1jMmJlLTQzYjEtYTFkZC04MTgxNzBiMzYyYzgiLCJpYXQiOjE2ODQ5NTUxNDUsImV4cCI6MTY4NDk1NjM0NX0.UbFiw_OW_-EXDcWQZgfW6Ya90TFRcPdTIT6SdQ1oJLc"
-  const url = "http://192.168.86.213:5000/recipes/"+route.path.toString().split("recipes/")[1];
+  const temp_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZW1pbCIsInVzZXJ1aWQiOiJiNTE2ZWEwZS1jMmJlLTQzYjEtYTFkZC04MTgxNzBiMzYyYzgiLCJpYXQiOjE2ODQ5NTY5NDIsImV4cCI6MTY4NDk1ODE0Mn0.TIB4M0MQPf4oWYa1iVAE0DtiIDvbw4PBbMS_VpGaLDE"
+  
     const config = {
       headers:{
         Authorization: "Bearer " + temp_jwt,
@@ -36,10 +34,21 @@ export default function Recipes() {
       useruid: JSON.parse(JSON.stringify(jwt_decode(temp_jwt))).useruid,
     }
     
-  useEffect(() => {
-    axios.post(url,data,config).then(data => setRecipe(data.data));
-    console.log(recipe)
-  },[])
+  // useEffect(() => {
+  //   if(route.path != undefined){
+  //     setUrl("http://192.168.86.213:5000/recipes/"+route.path?.toString().split("recipes/")[1]);
+  //   }
+  //   else{
+  //     console.log("hej")
+  //   }
+  // },[])
+    
+  // useEffect(() => {
+  //   if(url !== "http://192.168.86.213:5000/recipes/"){
+  //     axios.post(url,data,config).then(data => setRecipe(data.data));
+  //   }
+    
+  // },[url])
   
   
 

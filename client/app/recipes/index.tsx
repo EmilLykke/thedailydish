@@ -12,7 +12,7 @@ export default function Recipes() {
 
   const [recipes, setRecipes] = useState([])
 
-  const temp_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZW1pbCIsInVzZXJ1aWQiOiJiNTE2ZWEwZS1jMmJlLTQzYjEtYTFkZC04MTgxNzBiMzYyYzgiLCJpYXQiOjE2ODQ5NTQ0NzEsImV4cCI6MTY4NDk1NTY3MX0.gLqFl7uyT06ZjxwKYJrjEQOAs5p0uxVI5XbeKq74QDU"
+  const temp_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZW1pbCIsInVzZXJ1aWQiOiJiNTE2ZWEwZS1jMmJlLTQzYjEtYTFkZC04MTgxNzBiMzYyYzgiLCJpYXQiOjE2ODQ5NTY5NDIsImV4cCI6MTY4NDk1ODE0Mn0.TIB4M0MQPf4oWYa1iVAE0DtiIDvbw4PBbMS_VpGaLDE"
   const url = "http://192.168.86.213:5000/recipes/"
   
     const config = {
@@ -34,7 +34,7 @@ export default function Recipes() {
   
 
   function handleNavi(id:string){
-    router.push("/recipes/"+id);
+    router.push("/recipes/"+id.toString())
   }
 
   return (
