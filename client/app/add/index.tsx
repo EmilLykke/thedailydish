@@ -110,13 +110,13 @@ export default function Add() {
         }}
         
       />
-       <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
       {/* Title */}
       <TitleInput />
       {/* Image - Square with dotted line and images svg in middle */}
       <ImageInput press={handlePress} uploaded={uploaded}/>
       <Image 
-        style={{width: "100%", height: 150, resizeMode: "contain", }}
+        style={styles(uploaded).image}
         source={{uri: images?.assets[0].uri}}
         />      
       {/* Ingredients - like a todo - NOTIONS todo */}

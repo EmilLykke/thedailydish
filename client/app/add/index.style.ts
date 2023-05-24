@@ -12,7 +12,13 @@ const styles = (num?:number) => StyleSheet.create({
         fontSize: 28,
         fontFamily: num === 1 ? "CalibriBold" : "CalibriRegular",
         margin: 5
-    }
+    },
+    image:{
+        display: num === 1 ? "none" : "flex",
+        width: "100%",
+        height: 150,
+        resizeMode: "contain", 
+    },
 })
 
 export default styles;
