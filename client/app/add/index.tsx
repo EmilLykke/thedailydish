@@ -13,6 +13,7 @@ import CommentInput from "../../components/Add/CommentInput/CommentInput";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 import jwt_decode from "jwt-decode"; 
+import { getAccessToken } from "../../constants/accessToken";
 
 export default function Add() {
   const router = useRouter();
@@ -112,20 +113,22 @@ export default function Add() {
   }
 
 
- const temp_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZW1pbCIsInVzZXJ1aWQiOiJiNTE2ZWEwZS1jMmJlLTQzYjEtYTFkZC04MTgxNzBiMzYyYzgiLCJpYXQiOjE2ODQ5NTU2OTMsImV4cCI6MTY4NDk1Njg5M30.T32qyWE7nQi7TeeX8K9fdn6fW6ZrZnjmwTeFvQKWTaE"
 
-  // SUBMIT BUTTON
-  async function handleSubmit(){
+ const [token, setToken] = useState<string>()
+  const [t, setT] = useState<number>(1)
+
+ async function addRecipe(token: string){
+  if(token !== undefined){
     const url = "http://192.168.86.213:5000/recipes/add"
   
     const config = {
       headers:{
-        Authorization: "Bearer " + temp_jwt,
+        Authorization: "Bearer " + token,
       }
     };
 
     const data = {
-      useruid: JSON.parse(JSON.stringify(jwt_decode(temp_jwt))).useruid,
+      useruid: JSON.parse(JSON.stringify(jwt_decode(token))).useruid,
       title: titleInput,
       image: images?.assets[0].uri,
       ingredients: ingredients,
@@ -135,10 +138,22 @@ export default function Add() {
     
 
     const result = await axios.post(url,data, config);
-    console.log(result.data)    
-    
+    console.log(result.data)
+  } else {
+    setT(t*-1)
+  }
+ }
+  useEffect(()=>{
+    getAccessToken().then(data=>setToken(data))
+  },[t])
+
+  // SUBMIT BUTTON
+  async function handleSubmit(){
+    addRecipe(token);
+    router.back()
   }
 
+  
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff" }}>

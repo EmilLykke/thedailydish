@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let Recipe = require("../models/recipe.model");
+const { base64ToImage, imageToBase64, scaleDownImage } = require('../helpers/downscale');
 
 const { authenticateToken } = require('../index');
 
@@ -11,24 +12,38 @@ router.post("/", authenticateToken, (req,res)=>{
 router.post("/add", authenticateToken, async (req,res)=>{
     const useruid = req.body.useruid;
     const title = req.body.title;
-    const image = req.body.image;
+    const base64String = req.body.image;
     const ingredients = req.body.ingredients;
     const cookingSteps = req.body.cookingSteps;
     const comment = req.body.comment;
     
 
-    const newRecipe = new Recipe({
-        useruid,
-        title,
-        image,
-        ingredients,
-        cookingSteps,
-        comment,
-    });
+    // Example usage:
+    const scaleFactor = 0.2; // Scale factor (0.5 will reduce the image to half its original size)
+    let image;
+    const imageBuffer = base64ToImage(base64String);
+    scaleDownImage(imageBuffer, scaleFactor)
+    .then((resizedImageBuffer) => {
+        image = imageToBase64(resizedImageBuffer);
+        const newRecipe = new Recipe({
+            useruid,
+            title,
+            image,
+            ingredients,
+            cookingSteps,
+            comment,
+        });
+    
+        newRecipe.save().then(()=>{
+            res.json("Recipe added!");
+        }).catch(err => res.status(400).json("Error: "+ err));
+    })
+    .catch((error) => {
+        console.error('Error scaling down image:', error);
+    });    
 
-    newRecipe.save().then(()=>{
-        res.json("Recipe added!");
-    }).catch(err => res.status(400).json("Error: "+ err));
+    
+    
     
     // sender objekt med tilbage
     // newRecipe.save().then((newRecipe)=>{

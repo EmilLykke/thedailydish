@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { View, ScrollView, SafeAreaView, Text } from "react-native";
 import { Stack, useRouter } from "expo-router";
@@ -10,7 +10,6 @@ import RightHead from "../components/Home/RightHead/RightHead";
 
 export default function Home() {
   const router = useRouter();
-
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff"}}>

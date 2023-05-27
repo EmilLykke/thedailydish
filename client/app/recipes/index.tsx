@@ -6,32 +6,38 @@ import styles from "./index.style";
 import axios from "axios";
 import jwt_decode from "jwt-decode"; 
 import RecipeListView from "../../components/Recipes/RecipeListView/RecipeListView";
+import { getAccessToken } from "../../constants/accessToken";
 
 export default function Recipes() {
   const router = useRouter();
 
   const [recipes, setRecipes] = useState([])
+  const [token, setToken] = useState<string>()
+  const [t, setT] = useState<number>(1)
 
-  const temp_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZW1pbCIsInVzZXJ1aWQiOiJiNTE2ZWEwZS1jMmJlLTQzYjEtYTFkZC04MTgxNzBiMzYyYzgiLCJpYXQiOjE2ODQ5NTY5NDIsImV4cCI6MTY4NDk1ODE0Mn0.TIB4M0MQPf4oWYa1iVAE0DtiIDvbw4PBbMS_VpGaLDE"
   const url = "http://192.168.86.213:5000/recipes/"
-  
-    const config = {
-      headers:{
-        Authorization: "Bearer " + temp_jwt,
+
+
+    function getRecipe(token: string){
+      if(token !== undefined){
+        const data = {
+          useruid: JSON.parse(JSON.stringify(jwt_decode(token))).useruid,
+        }
+        const config = {
+          headers:{
+            Authorization: "Bearer " + token,
+          }
+        }
+        axios.post(url,data, config).then(data => setRecipes(data.data));
+      } else {
+        setT(t*-1)
       }
-    };
-
-    const data = {
-      useruid: JSON.parse(JSON.stringify(jwt_decode(temp_jwt))).useruid,
     }
-    
 
-    
 
-  useEffect(() => {
-    axios.post(url,data, config).then(data => setRecipes(data.data));
-  },[])
-  
+    useEffect(()=>{
+      getAccessToken().then(data=>setToken(data)).then(()=>getRecipe(token))
+    },[t])
 
   function handleNavi(id:string){
     router.push("/recipes/"+id.toString())
@@ -46,9 +52,9 @@ export default function Recipes() {
           headerTitle: "",
         }}
       />
-      <View style={styles().recipeListContainer}>
+      <ScrollView style={styles().recipeListContainer}>
         {recipes.map((item, index)=>(<RecipeListView key={index} title={item.title} image={item.image} id={item._id} handlePress={handleNavi}/>))}
-      </View>
+      </ScrollView>
       
     </SafeAreaView>
   );
