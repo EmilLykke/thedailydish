@@ -28,7 +28,7 @@ export default function Recipes() {
             Authorization: "Bearer " + token,
           }
         }
-        axios.post(url,data, config).then(data => setRecipes(data.data));
+        axios.post(url,data, config).then(data => setRecipes(data.data)).catch(err => handleError(err.response.status));
       } else {
         setT(t*-1)
       }
@@ -38,6 +38,14 @@ export default function Recipes() {
     useEffect(()=>{
       getAccessToken().then(data=>setToken(data)).then(()=>getRecipe(token))
     },[t])
+
+    function handleError(error: number){
+      if(error === 403){
+        setError(<View style={styles().errorBox}><Text style={styles().errorText}>An error occured</Text></View>)
+      }
+    }
+
+  const [error, setError] = useState<any>();
 
   function handleNavi(id:string){
     router.push("/recipes/"+id.toString())
@@ -55,6 +63,7 @@ export default function Recipes() {
       <ScrollView style={styles().scrollView}>
         <View style={styles().recipeListContainer}>
         {recipes.map((item, index)=>(<RecipeListView key={index} title={item.title} image={item.image} id={item._id} handlePress={handleNavi}/>))}
+        {error}
         </View>
       </ScrollView>
       

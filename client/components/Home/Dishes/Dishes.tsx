@@ -46,7 +46,7 @@ export default function Overview({}: Props) {
 
     function handleError(error: number){
       if(error === 403){
-        setError(<View style={styles().errorBox}><Text style={styles().errorText}>An error occured</Text></View>)
+        setError(<View style={styles(1).errorBox}><Text style={styles().errorText}>An error occured</Text></View>)
       }
     }
 
