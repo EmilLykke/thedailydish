@@ -19,7 +19,7 @@ router.post("/add", authenticateToken, async (req,res)=>{
     
 
     // Example usage:
-    const scaleFactor = 0.2; // Scale factor (0.5 will reduce the image to half its original size)
+    const scaleFactor = 0.5; // Scale factor (0.5 will reduce the image to half its original size)
     let image;
     const imageBuffer = base64ToImage(base64String);
     scaleDownImage(imageBuffer, scaleFactor)

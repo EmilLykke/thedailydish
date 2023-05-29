@@ -1,8 +1,12 @@
 import { StyleSheet } from "react-native";
+import { FONT } from "../../../constants";
 
 
 const styles = (num?:number, ball?:number) => StyleSheet.create({
     container:{
+        marginLeft: 10,
+        marginRight: 10,
+        
     },
     headContainer:{
         justifyContent: "center",
@@ -33,6 +37,29 @@ const styles = (num?:number, ball?:number) => StyleSheet.create({
         backgroundColor: "#588E41",
         
     },
+    dishesContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+
+    },
+
+    errorBox: {backgroundColor: "#e63946",
+    width: 200,
+    height: 100,
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 15,
+    
+  },
+  errorText: {
+    color: "white",
+    fontFamily: FONT.bold,
+    letterSpacing: 1,
+    fontSize: 20,
+}
+
 
    
 })

@@ -150,7 +150,7 @@ export default function Add() {
   // SUBMIT BUTTON
   async function handleSubmit(){
     addRecipe(token);
-    router.back()
+    router.replace("/");
   }
 
   

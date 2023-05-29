@@ -52,8 +52,10 @@ export default function Recipes() {
           headerTitle: "",
         }}
       />
-      <ScrollView style={styles().recipeListContainer}>
+      <ScrollView style={styles().scrollView}>
+        <View style={styles().recipeListContainer}>
         {recipes.map((item, index)=>(<RecipeListView key={index} title={item.title} image={item.image} id={item._id} handlePress={handleNavi}/>))}
+        </View>
       </ScrollView>
       
     </SafeAreaView>

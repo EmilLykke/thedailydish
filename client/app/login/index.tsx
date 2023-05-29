@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView } from 'react-native'
+import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, SafeAreaView } from 'react-native'
 import { Stack, useRouter } from "expo-router";
 import styles from "./index.style";
 import { useEffect, useState } from 'react';
@@ -31,17 +31,17 @@ const Login = () => {
         }}
         
       />
-      <View style={styles().container}>
-        <View style={styles().inputContainer}>
+      <KeyboardAvoidingView style={styles().container}>
+        <KeyboardAvoidingView style={styles().inputContainer}>
           <TextInput style={styles().input} placeholder="Username" onChangeText={text => setLogin({...login, username: text})} />
-        </View>
-        <View style={styles().inputContainer}>
+        </KeyboardAvoidingView>
+        <KeyboardAvoidingView style={styles().inputContainer}>
           <TextInput style={styles().input} placeholder="Password" onChangeText={text => setLogin({...login, password: text})} secureTextEntry={true} />
-        </View>
+        </KeyboardAvoidingView>
         <TouchableOpacity style={styles().loginButton} onPress={handleSubmit}>
           <Text style={styles().loginButtonText}>Login</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
       
     </SafeAreaView>
     

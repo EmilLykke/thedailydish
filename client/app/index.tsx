@@ -38,7 +38,6 @@ export default function Home() {
         
         {/* Dishes section */}
         <Dishes />
-        <Text>Coming soon</Text>
 
       </ScrollView>
     </SafeAreaView>

@@ -1,7 +1,6 @@
-import { View, Text, ImageBackground, TouchableOpacity, TextInput } from "react-native";
-import { useRouter } from "expo-router";
+import { View, Text, TextInput } from "react-native";
 import styles from "./CommentInput.style";
-import { useState } from "react";
+
 type Props = {
   handleChange: (data:string) => void,
   text:string
@@ -22,7 +21,6 @@ export default function CommentInput({handleChange, text}: Props) {
         placeholder="Comment"
         placeholderTextColor="#919191"
       />
-
       
     </View>
   );

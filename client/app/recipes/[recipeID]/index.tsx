@@ -59,8 +59,6 @@ export default function Recipes() {
     useEffect(() => {
       if(recipeID !== undefined){
         getAccessToken().then(data=>setToken(data)).then(()=>getRecipe(token))
-      } else{
-
       }
     },[url, t])
   
@@ -79,10 +77,10 @@ export default function Recipes() {
         
       />
       <View >
-      <Image source={{uri: recipe?.image}} />
-       <Text>{recipe?.title}</Text>
-       <Text>{recipe?.comment}</Text>
-       <Text>{recipe?.comment}</Text>
+        <Image style={{width: 100, height: 100}} source={{uri: recipe?.image}} />
+        <Text>{recipe?.title}</Text>
+        <Text>{recipe?.comment}</Text>
+        <Text>{recipe?.comment}</Text>
       </View>
       
     </SafeAreaView>

@@ -6,7 +6,7 @@ import { FONT } from "../../../constants";
 const styles = StyleSheet.create({
     container:{
         shadowColor: "#000000",
-        shadowOpacity: 0.25,
+        shadowOpacity: 0.15,
         shadowRadius: 5,
         shadowOffset: {width: 0, height:3},
         borderRadius: 15,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         fontFamily: FONT.regular,
         color: "white",
         textShadowColor: "#000000",
-        textShadowRadius: 5,
+        textShadowRadius: 10,
         textShadowOffset: {width: 0, height:3},
     },
     arrowView: {

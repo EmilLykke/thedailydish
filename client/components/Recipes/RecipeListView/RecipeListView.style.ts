@@ -9,34 +9,46 @@ const styles = StyleSheet.create({
     },
     
     imageContainer: {
-        width: 200,
-        height:200,
+        width: 170,
+        height: 170,
         borderRadius: 15,
         overflow: 'hidden',
         elevation: 2,
+        margin: 10,
+
+        shadowColor: "#000000",
+        shadowOpacity: 0.15,
+        shadowRadius: 5,
+        shadowOffset: {width: 0, height:3},
     },
     image: {
         borderRadius: 15,
-        width: "100%",
-        height:"100%",
+        width: 170,
+        height:170,
         
     },
     imageView: {
-        padding: 10,
+        paddingLeft: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
+        paddingRight: 10,
         justifyContent: "center",
         alignSelf: "baseline",
-        backgroundColor: "#212121",
-        margin: 10,
-        borderRadius: 3,
+        borderBottomRightRadius: 15,
+        backgroundColor: "white",
+        shadowOffset: {width: 1, height: 1},
+        shadowRadius: 5,
+        shadowOpacity: 0.2
+
     },
     imageText: {
-        fontSize: 25,
-        fontFamily: FONT.regular,
-        color: "#fff",
-        textShadowColor: "#000",
-        textShadowRadius: 4,
-        textShadowOffset: {width: 2, height:3},
+        fontSize: 18,
+        fontFamily: FONT.bold,
+        color: "#000",
+
     },
+
+    
    
 })
 
