@@ -28,7 +28,7 @@ export default function Recipes() {
             Authorization: "Bearer " + token,
           }
         }
-        axios.post(url,data, config).then(data => setRecipes(data.data)).catch(err => handleError(err.response.status));
+        axios.post(url,data, config).then(data => setRecipes(data.data)).catch(err => setError(err));
       } else {
         setT(t*-1)
       }

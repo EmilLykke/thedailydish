@@ -1,29 +1,33 @@
 import { View, Text, ImageBackground,TouchableOpacity } from "react-native"
 import styles from "./RecipeListView.style"
-import Corner from "../../../assets/icons/svgs/Corner"
+import {useWindowDimensions} from 'react-native';
+
 
 type Props = {
     title: string,
-    image: {uri: string},
+    image: string,
     handlePress: (id:string)=>void,
     id: string,
 }
 
 export default function RecipeListView({title, image, handlePress, id}: Props) {
+
+  const {height, width} = useWindowDimensions();
+  // console.log(Math.floor(width))
   return (
     
-    <TouchableOpacity style={styles.imageContainer} onPress={() => handlePress(id)}>
+    <TouchableOpacity style={styles(width).imageContainer} onPress={() => handlePress(id)}>
     <ImageBackground
-      style={styles.image}
-      source={image}
+      style={styles().image}
+      source={{uri: image}}
       resizeMode="cover"
     >
+    <View style={styles().imageView}>
+        <Text style={styles().imageText}>{title}</Text>
+    </View>
 
-      <View style={styles.imageView}>
-        <Text style={styles.imageText}>{title}</Text>
-      </View>
-      
-    </ImageBackground>
+    </ImageBackground> 
+    
   </TouchableOpacity>
   )
 }

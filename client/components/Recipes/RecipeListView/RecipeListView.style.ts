@@ -3,14 +3,16 @@ import { StyleSheet } from "react-native";
 
 import { FONT } from "../../../constants";
 
-const styles = StyleSheet.create({
+
+
+const styles = (width?: number, height?: number) => StyleSheet.create({
     container:{
         
     },
     
     imageContainer: {
-        width: 170,
-        height: 170,
+        width: width*0.4,
+        height: width*0.4,
         borderRadius: 15,
         overflow: 'hidden',
         elevation: 2,
@@ -23,8 +25,8 @@ const styles = StyleSheet.create({
     },
     image: {
         borderRadius: 15,
-        width: 170,
-        height:170,
+        width: "100%",
+        height:"100%",
         
     },
     imageView: {
