@@ -70,7 +70,7 @@ export default function Overview({}: Props) {
       setDish(0);
       setBall1(1);
       setBall2(0);
-      setDishes(<Text>Coming soon</Text>)
+      setDishes(<Text>Coming soon later</Text>)
     } else {
       setNewDish(0);
       setDish(1);

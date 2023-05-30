@@ -17,6 +17,7 @@ router.post("/add", authenticateToken, async (req,res)=>{
     const cookingSteps = req.body.cookingSteps;
     const comment = req.body.comment;
     
+    console.log(base64String)
 
     // Example usage:
     const scaleFactor = 0.5; // Scale factor (0.5 will reduce the image to half its original size)

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { SafeAreaView, Image } from "react-native";
+import { SafeAreaView, Image, Platform } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import styles from "./index.style";
 import TitleInput from "../../components/Add/TitleInput/TitleInput";
@@ -14,6 +14,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import axios from "axios";
 import jwt_decode from "jwt-decode"; 
 import { getAccessToken } from "../../constants/accessToken";
+import RNFetchBlob from 'rn-fetch-blob'
 
 export default function Add() {
   const router = useRouter();
@@ -117,6 +118,8 @@ export default function Add() {
  const [token, setToken] = useState<string>()
   const [t, setT] = useState<number>(1)
 
+  const [image, setImage] = useState<any>()
+
  async function addRecipe(token: string){
   if(token !== undefined){
     const url = "http://192.168.86.213:5000/recipes/add"
@@ -126,11 +129,22 @@ export default function Add() {
         Authorization: "Bearer " + token,
       }
     };
+    if(Platform.OS === 'android'){
+      RNFetchBlob.fs
+      .readFile(
+        images.assets[0].uri.replace("file://"),
+        'base64',
+      ).then(res => {
+        setImage(res);
+     })
+    } else {
+      setImage(images.assets[0].uri);
+    }
 
     const data = {
       useruid: JSON.parse(JSON.stringify(jwt_decode(token))).useruid,
       title: titleInput,
-      image: images?.assets[0].uri,
+      image: image,
       ingredients: ingredients,
       cookingSteps: steps,
       comment: commentInput,
@@ -184,7 +198,7 @@ export default function Add() {
 
       {/* Save button */}
       <SubmitButton handleSubmit={handleSubmit}/>
-
+        
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );

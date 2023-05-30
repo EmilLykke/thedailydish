@@ -13,3 +13,23 @@ npx create-react-native-app -t with-router
 - [Expo Router: Docs](https://expo.github.io/router)
 - [Expo Router: Repo](https://github.com/expo/router)
 - [Request for Comments](https://github.com/expo/router/discussions/1)
+
+Remember to change the \node_modules\react-native-svg\android\build.gradle
+
+dependencies {
+    if (isNewArchitectureEnabled()) {
+        implementation project(":ReactAndroid")
+    } else {
+        implementation 'com.facebook.react:react-native:+'
+    }
+}
+
+TO:
+
+dependencies {
+    if (isNewArchitectureEnabled()) {
+        implementation "com.facebook.react:react-android"
+    } else {
+        implementation 'com.facebook.react:react-native:+'
+    }
+}
